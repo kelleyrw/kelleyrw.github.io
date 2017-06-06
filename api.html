@@ -1,0 +1,866 @@
+<!DOCTYPE HTML><html><head><title>RevOne RESTful API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 6.3.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+      .items {
+        background: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 9.5px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+      }
+      .examples {
+        margin-left: 0.5em;
+      }
+      .resource-modal li > ul {
+        margin-bottom: 1em;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>RevOne RESTful API documentation <small>version v1.0</small></h1><p>http://www.dataplusmath.com/api/{version}</p><ul><li><strong>version</strong>: <em>required (v1.0)</em></li></ul></div><div class="panel panel-default"><div class="panel-heading"><h3 id="networks" class="panel-title">/networks</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of Networks.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_networks"><span class="parent"></span>/networks</a> <span class="methods"><a href="#networks_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_networks" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#networks_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Networks.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="networks_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/networks</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Networks.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#networks_get_response" data-toggle="tab">Response</a></li><li><a href="#networks_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="networks_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of Network</p><p><strong>Items</strong>: Network</p><div class="items"><ul><li><strong>network_id</strong>: <em>required (integer)</em></li><li><strong>network_name</strong>: <em>required (integer)</em></li><li><strong>network_call_sign</strong>: <em>required (string)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "network_id": 1,
+    "network_name": "National Broadcasting Company",
+    "network_call_sign": "NBC"
+  },
+  {
+    "network_id": 2,
+    "network_name": "ESPN",
+    "network_call_sign": "ESPN"
+  }
+]</code></pre></div></div><div class="tab-pane" id="networks_get_securedby"><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="network_groups" class="panel-title">/network-groups</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of NetworkGroups.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_network_groups"><span class="parent"></span>/network-groups</a> <span class="methods"><a href="#network_groups_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_network_groups" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#network_groups_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all NetworkGroups.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="network_groups_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/network-groups</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all NetworkGroups.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#network_groups_get_response" data-toggle="tab">Response</a></li><li><a href="#network_groups_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="network_groups_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of NetworkGroup</p><p><strong>Items</strong>: NetworkGroup</p><div class="items"><ul><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>network_group_name</strong>: <em>required (integer)</em></li><li><strong>networks</strong>: <em>required (array of Network)</em><p><strong>Items</strong>: Network</p><div class="items"><ul><li><strong>network_id</strong>: <em>required (integer)</em></li><li><strong>network_name</strong>: <em>required (integer)</em></li><li><strong>network_call_sign</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "network_id": 1,
+  "network_name": "National Broadcasting Company",
+  "network_call_sign": "NBC"
+}</code></pre></div></div></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "network_group_id": 998,
+    "network_group_name": "ESPN family",
+    "networks": [
+      {
+        "network_id": 77,
+        "network_name": "ESPN",
+        "network_call_sign": "ESPN"
+      },
+      {
+        "network_id": 78,
+        "network_name": "ESPN2",
+        "network_call_sign": "ESPN2"
+      }
+    ]
+  },
+  {
+    "network_group_id": 999,
+    "network_group_name": "Fox Sports family",
+    "networks": [
+      {
+        "network_id": 79,
+        "network_name": "Fox Sports 1",
+        "network_call_sign": "FS1"
+      },
+      {
+        "network_id": 80,
+        "network_name": "Fox Sports 2",
+        "network_call_sign": "FS2"
+      }
+    ]
+  }
+]</code></pre></div></div><div class="tab-pane" id="network_groups_get_securedby"><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="dayparts" class="panel-title">/dayparts</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of Dayparts.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_dayparts"><span class="parent"></span>/dayparts</a> <span class="methods"><a href="#dayparts_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_dayparts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#dayparts_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Dayparts.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="dayparts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/dayparts</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Dayparts.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#dayparts_get_response" data-toggle="tab">Response</a></li><li><a href="#dayparts_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="dayparts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of Daypart</p><p><strong>Items</strong>: Daypart</p><div class="items"><ul><li><strong>daypart_id</strong>: <em>required (integer)</em></li><li><strong>daypart_name</strong>: <em>required (integer)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "daypart_id": 1,
+    "daypart_name": "Morning"
+  },
+  {
+    "daypart_id": 2,
+    "daypart_name": "Daytime"
+  }
+]</code></pre></div></div><div class="tab-pane" id="dayparts_get_securedby"><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="audiences" class="panel-title">/audiences</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of Audiences.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_audiences"><span class="parent"></span>/audiences</a> <span class="methods"><a href="#audiences_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#audiences_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_audiences" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#audiences_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Audiences.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#audiences_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new Audience.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="audiences_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/audiences</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Audiences.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>audience:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#audiences_get_response" data-toggle="tab">Response</a></li><li><a href="#audiences_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="audiences_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of Audience</p><p><strong>Items</strong>: Audience</p><div class="items"><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "audience_id": 0,
+    "audience_name": "all households",
+    "audience_definition_id": 0,
+    "audience_definition_name": "All",
+    "audience_definition_description": "All household",
+    "sample_id": 1,
+    "audience_sample_entity_count": 2500,
+    "audience_estimated_size": 118400000,
+    "sample_entity_count": 3500,
+    "population_estimated_size": 118400000
+  },
+  {
+    "audience_id": 1,
+    "audience_name": "fake audience",
+    "audience_definition_id": 1,
+    "audience_definition_name": "fake",
+    "audience_definition_description": "fake audience that assumes foo and bar",
+    "sample_id": 1,
+    "audience_sample_entity_count": 1500,
+    "audience_estimated_size": 20400000,
+    "sample_entity_count": 3500,
+    "population_estimated_size": 118400000
+  }
+]</code></pre></div></div><div class="tab-pane" id="audiences_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="audiences_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/audiences</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new Audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>audience:insert</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#audiences_post_request" data-toggle="tab">Request</a></li><li><a href="#audiences_post_response" data-toggle="tab">Response</a></li><li><a href="#audiences_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="audiences_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>audience_id</strong>: <em>(integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>entity_count</strong>: <em>(integer)</em></li><li><strong>estimated_population_size</strong>: <em>(integer)</em></li><li><strong>logical_expression</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_name": "Fake Audience 1",
+  "audience_desc": "Fake Audience 1&#39;s description",
+  "logical_expression": "some logical expression yet to be defined..."
+}</code></pre></div></div><div class="tab-pane" id="audiences_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all households",
+  "audience_definition_id": 0,
+  "audience_definition_name": "All",
+  "audience_definition_description": "All household",
+  "sample_id": 1,
+  "audience_sample_entity_count": 2500,
+  "audience_estimated_size": 118400000,
+  "sample_entity_count": 3500,
+  "population_estimated_size": 118400000
+}</code></pre></div></div><div class="tab-pane" id="audiences_post_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_audiences__audience_id_"><span class="parent">/audiences</span>/{audience_id}</a> <span class="methods"><a href="#audiences__audience_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#audiences__audience_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#audiences__audience_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_audiences__audience_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single Audience.</p></div><div class="list-group"><div onclick="window.location.href = '#audiences__audience_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a Audience.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#audiences__audience_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a Audience.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#audiences__audience_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a Audience.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="audiences__audience_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/audiences</span>/{audience_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a Audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>audience:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#audiences__audience_id__get_request" data-toggle="tab">Request</a></li><li><a href="#audiences__audience_id__get_response" data-toggle="tab">Response</a></li><li><a href="#audiences__audience_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="audiences__audience_id__get_request"><h3>URI Parameters</h3><ul><li><strong>audience_id</strong>: <em>required (integer)</em><p>The id of the Audience.</p></li></ul></div><div class="tab-pane" id="audiences__audience_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all households",
+  "audience_definition_id": 0,
+  "audience_definition_name": "All",
+  "audience_definition_description": "All household",
+  "sample_id": 1,
+  "audience_sample_entity_count": 2500,
+  "audience_estimated_size": 118400000,
+  "sample_entity_count": 3500,
+  "population_estimated_size": 118400000
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="audiences__audience_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="audiences__audience_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/audiences</span>/{audience_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a Audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>audience:update</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#audiences__audience_id__put_request" data-toggle="tab">Request</a></li><li><a href="#audiences__audience_id__put_response" data-toggle="tab">Response</a></li><li><a href="#audiences__audience_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="audiences__audience_id__put_request"><h3>URI Parameters</h3><ul><li><strong>audience_id</strong>: <em>required (integer)</em><p>The id of the Audience.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul></div><div class="tab-pane" id="audiences__audience_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all households",
+  "audience_definition_id": 0,
+  "audience_definition_name": "All",
+  "audience_definition_description": "All household",
+  "sample_id": 1,
+  "audience_sample_entity_count": 2500,
+  "audience_estimated_size": 118400000,
+  "sample_entity_count": 3500,
+  "population_estimated_size": 118400000
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="audiences__audience_id__put_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="audiences__audience_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/audiences</span>/{audience_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a Audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>audience:delete</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#audiences__audience_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#audiences__audience_id__delete_response" data-toggle="tab">Response</a></li><li><a href="#audiences__audience_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="audiences__audience_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>audience_id</strong>: <em>required (integer)</em><p>The id of the Audience.</p></li></ul></div><div class="tab-pane" id="audiences__audience_id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="audiences__audience_id__delete_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="organizations" class="panel-title">/organizations</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of Organizations.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_organizations"><span class="parent"></span>/organizations</a> <span class="methods"><a href="#organizations_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_organizations" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#organizations_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Organizations.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new Organization.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/organizations</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Organizations.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>dpm:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations_get_response" data-toggle="tab">Response</a></li><li><a href="#organizations_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of Organization</p><p><strong>Items</strong>: Organization</p><div class="items"><ul><li><strong>organization_id</strong>: <em>required (integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "organization_id": 1,
+    "organization_name": "Org 1",
+    "date_created": "2017-04-17"
+  },
+  {
+    "organization_id": 2,
+    "organization_name": "Org 2",
+    "date_created": "2017-05-20"
+  }
+]</code></pre></div></div><div class="tab-pane" id="organizations_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/organizations</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new Organization.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>dpm:insert</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations_post_request" data-toggle="tab">Request</a></li><li><a href="#organizations_post_response" data-toggle="tab">Response</a></li><li><a href="#organizations_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>organization_id</strong>: <em>(integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>(date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "organization_name": "Org 1"
+}</code></pre></div></div><div class="tab-pane" id="organizations_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>organization_id</strong>: <em>required (integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "organization_id": 1,
+  "organization_name": "Org 1",
+  "date_created": "2017-04-17"
+}</code></pre></div></div><div class="tab-pane" id="organizations_post_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_organizations__organization_id_"><span class="parent">/organizations</span>/{organization_id}</a> <span class="methods"><a href="#organizations__organization_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations__organization_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations__organization_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_organizations__organization_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single Organization.</p></div><div class="list-group"><div onclick="window.location.href = '#organizations__organization_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a Organization.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations__organization_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a Organization.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations__organization_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a Organization.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organization_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organization_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a Organization.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>dpm:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organization_id__get_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organization_id__get_response" data-toggle="tab">Response</a></li><li><a href="#organizations__organization_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organization_id__get_request"><h3>URI Parameters</h3><ul><li><strong>organization_id</strong>: <em>required (integer)</em><p>The id of the Organziation.</p></li></ul></div><div class="tab-pane" id="organizations__organization_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>organization_id</strong>: <em>required (integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "organization_id": 1,
+  "organization_name": "Org 1",
+  "date_created": "2017-04-17"
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="organizations__organization_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organization_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organization_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a Organization.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>dpm:update</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organization_id__put_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organization_id__put_response" data-toggle="tab">Response</a></li><li><a href="#organizations__organization_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organization_id__put_request"><h3>URI Parameters</h3><ul><li><strong>organization_id</strong>: <em>required (integer)</em><p>The id of the Organziation.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>organization_id</strong>: <em>required (integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li></ul></div><div class="tab-pane" id="organizations__organization_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>organization_id</strong>: <em>required (integer)</em></li><li><strong>organization_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "organization_id": 1,
+  "organization_name": "Org 1",
+  "date_created": "2017-04-17"
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="organizations__organization_id__put_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organization_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organization_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a Organization.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>dpm:delete</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organization_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organization_id__delete_response" data-toggle="tab">Response</a></li><li><a href="#organizations__organization_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organization_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>organization_id</strong>: <em>required (integer)</em><p>The id of the Organziation.</p></li></ul></div><div class="tab-pane" id="organizations__organization_id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="organizations__organization_id__delete_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="clients" class="panel-title">/clients</h3></div><div class="panel-body"><div class="top-resource-description"><p>A collection of Clients.</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients"><span class="parent"></span>/clients</a> <span class="methods"><a href="#clients_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#clients_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Clients.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new Client.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/clients</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Clients.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>client:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients_get_response" data-toggle="tab">Response</a></li><li><a href="#clients_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "client_id": 1,
+    "client_name": "Client 1",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "organization_id": 1
+  },
+  {
+    "client_id": 2,
+    "client_name": "Client 2",
+    "date_created": "2017-05-20",
+    "date_updated": "2017-05-20",
+    "organization_id": 1
+  }
+]</code></pre></div></div><div class="tab-pane" id="clients_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/clients</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new Client.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>client:insert</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients_post_request" data-toggle="tab">Request</a></li><li><a href="#clients_post_response" data-toggle="tab">Response</a></li><li><a href="#clients_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>client_id</strong>: <em>(integer)</em></li><li><strong>client_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>(date-only)</em></li><li><strong>date_updated</strong>: <em>(date-only)</em></li><li><strong>organization_id</strong>: <em>(integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "client_name": "Client 1"
+}</code></pre></div></div><div class="tab-pane" id="clients_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>client_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li><li><strong>organization_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "client_id": 1,
+  "client_name": "Client 1",
+  "date_created": "2017-04-17",
+  "date_updated": "2017-04-17",
+  "organization_id": 1
+}</code></pre></div></div><div class="tab-pane" id="clients_post_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id_"><span class="parent">/clients</span>/{client_id}</a> <span class="methods"><a href="#clients__client_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single Client.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a Client.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a Client.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a Client.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients</span>/{client_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a Client.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>client:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul></div><div class="tab-pane" id="clients__client_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>client_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li><li><strong>organization_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "client_id": 1,
+  "client_name": "Client 1",
+  "date_created": "2017-04-17",
+  "date_updated": "2017-04-17",
+  "organization_id": 1
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients</span>/{client_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a Client.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>client:update</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__put_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__put_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__put_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>client_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li><li><strong>organization_id</strong>: <em>required (integer)</em></li></ul></div><div class="tab-pane" id="clients__client_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>client_name</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li><li><strong>organization_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "client_id": 1,
+  "client_name": "Client 1",
+  "date_created": "2017-04-17",
+  "date_updated": "2017-04-17",
+  "organization_id": 1
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__put_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients</span>/{client_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a Client.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>client:delete</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__delete_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul></div><div class="tab-pane" id="clients__client_id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__delete_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaign_post_report_summaries"><span class="parent">/clients/{client_id}</span>/campaign-post-report-summaries</a> <span class="methods"><a href="#clients__client_id__campaign_post_report_summaries_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaign_post_report_summaries" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A collection of CampaignPostReportSummaries.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaign_post_report_summaries_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all CampaignPostReportSummaries.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaign_post_report_summaries_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}</span>/campaign-post-report-summaries</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all CampaignPostReportSummaries.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign_post_report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaign_post_report_summaries_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaign_post_report_summaries_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaign_post_report_summaries_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaign_post_report_summaries_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaign_post_report_summaries_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of CampaignPostReportSummary</p><p><strong>Items</strong>: CampaignPostReportSummary</p><div class="items"><ul><li><strong>campaign</strong>: <em>required (object)</em><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div></li><li><strong>measurements</strong>: <em>required (array of CampaignPostReportSummaryAudienceMeasurement)</em><p><strong>Items</strong>: CampaignPostReportSummaryAudienceMeasurement</p><div class="items"><ul><li><strong>audience_id</strong>: <em>required (string)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>impressions</strong>: <em>required (number)</em></li><li><strong>rating_points</strong>: <em>required (number)</em></li><li><strong>composition</strong>: <em>required (number)</em></li><li><strong>index</strong>: <em>required (number)</em></li><li><strong>reach</strong>: <em>required (number)</em></li><li><strong>percent_reach</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all",
+  "impressions": 1000000,
+  "rating_points": 4,
+  "composition": 100,
+  "index": 100,
+  "reach": 400000,
+  "percent_reach": 67.2
+}</code></pre></div></div></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "campaign": {
+      "campaign_id": 1,
+      "campaign_name": "Campaign 1",
+      "campaign_budget": 1000000,
+      "campaign_start_date": "2017-04-17",
+      "campaign_end_date": "2017-08-17",
+      "status": "complete",
+      "date_created": "2017-04-17",
+      "date_updated": "2017-04-17",
+      "client_id": 1
+    },
+    "measurements": [
+      {
+        "audience_id": "0,",
+        "audience_name": "all",
+        "impressions": "1000000,",
+        "rating_points": "4,",
+        "composition": "100.0,",
+        "index": "100.0,",
+        "reach": "400000,",
+        "percent_reach": "67.2,"
+      }
+    ]
+  },
+  {
+    "campaign": {
+      "campaign_id": 2,
+      "campaign_name": "Campaign 2",
+      "campaign_budget": 1000000,
+      "campaign_start_date": "2017-04-17",
+      "campaign_end_date": "2017-08-17",
+      "status": "complete",
+      "date_created": "2017-04-17",
+      "date_updated": "2017-04-17",
+      "client_id": 1
+    },
+    "measurements": [
+      {
+        "audience_id": "0,",
+        "audience_name": "all",
+        "impressions": "2000000,",
+        "rating_points": "6,",
+        "composition": "100.0,",
+        "index": "100.0,",
+        "reach": "500000,",
+        "percent_reach": "55.2,"
+      }
+    ]
+  }
+]</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaign_post_report_summaries_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaign_post_report_summaries__campaign_id_"><span class="parent">/clients/{client_id}/campaign-post-report-summaries</span>/{campaign_id}</a> <span class="methods"><a href="#clients__client_id__campaign_post_report_summaries__campaign_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaign_post_report_summaries__campaign_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single CampaignPostReportSummary.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaign_post_report_summaries__campaign_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a CampaignPostReportSummary.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaign_post_report_summaries__campaign_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaign-post-report-summaries</span>/{campaign_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a CampaignPostReportSummary.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign_post_report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaign_post_report_summaries__campaign_id__get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaign_post_report_summaries__campaign_id__get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaign_post_report_summaries__campaign_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaign_post_report_summaries__campaign_id__get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the CampaignPostReportSummary.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaign_post_report_summaries__campaign_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign</strong>: <em>required (object)</em><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div></li><li><strong>measurements</strong>: <em>required (array of CampaignPostReportSummaryAudienceMeasurement)</em><p><strong>Items</strong>: CampaignPostReportSummaryAudienceMeasurement</p><div class="items"><ul><li><strong>audience_id</strong>: <em>required (string)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>impressions</strong>: <em>required (number)</em></li><li><strong>rating_points</strong>: <em>required (number)</em></li><li><strong>composition</strong>: <em>required (number)</em></li><li><strong>index</strong>: <em>required (number)</em></li><li><strong>reach</strong>: <em>required (number)</em></li><li><strong>percent_reach</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all",
+  "impressions": 1000000,
+  "rating_points": 4,
+  "composition": 100,
+  "index": 100,
+  "reach": 400000,
+  "percent_reach": 67.2
+}</code></pre></div></div></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "complete",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  },
+  "measurements": [
+    {
+      "audience_id": "0,",
+      "audience_name": "all",
+      "impressions": "1000000,",
+      "rating_points": "4,",
+      "composition": "100.0,",
+      "index": "100.0,",
+      "reach": "400000,",
+      "percent_reach": "67.2,"
+    }
+  ]
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaign_post_report_summaries__campaign_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns"><span class="parent">/clients/{client_id}</span>/campaigns</a> <span class="methods"><a href="#clients__client_id__campaigns_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A collection of Campaigns.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all Campaigns.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new Campaign.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}</span>/campaigns</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all Campaigns.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: array of Campaign</p><p><strong>Items</strong>: Campaign</p><div class="items"><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul></div><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "complete",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  },
+  {
+    "campaign_id": 2,
+    "campaign_name": "Campaign 2",
+    "campaign_budget": 7000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "complete",
+    "date_created": "2017-05-20",
+    "date_updated": "2017-05-20",
+    "client_id": 1
+  }
+]</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}</span>/campaigns</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new Campaign.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign:insert</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns_post_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns_post_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns_post_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>(integer)</em></li><li><strong>campaign_start_date</strong>: <em>(date-only)</em></li><li><strong>status</strong>: <em>(string)</em></li><li><strong>date_created</strong>: <em>(date-only)</em></li><li><strong>client_id</strong>: <em>(integer)</em></li><li><strong>campaign_end_date</strong>: <em>(date-only)</em></li><li><strong>date_updated</strong>: <em>(date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign_name": "Campaign 1",
+  "campaign_budget": 1000000,
+  "campaign_start_date": "2017-04-17",
+  "campaign_end_date": "2017-08-17",
+  "status": "running"
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns_post_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id_"><span class="parent">/clients/{client_id}/campaigns</span>/{campaign_id}</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns__campaign_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns__campaign_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single Campaign.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a Campaign.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a Campaign.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a Campaign.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns</span>/{campaign_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a Campaign.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns</span>/{campaign_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a Campaign.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign:update</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__put_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__put_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__put_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__put_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns</span>/{campaign_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a Campaign.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>campaign:delete</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__delete_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__delete_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id__post_report_spot_details"><span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-spot-details</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__post_report_spot_details_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id__post_report_spot_details" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single PostReportSpotDetails.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_spot_details_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a PostReportSpotDetails.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_spot_details_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-spot-details</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a PostReportSpotDetails.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_spot_details_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_spot_details_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_spot_details_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_spot_details_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_spot_details_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: string</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+    "campaign": {
+      "campaign_id": 1,
+      "campaign_name": "Campaign 1",
+      "campaign_budget": 1000000,
+      "campaign_start_date": "2017-04-17",
+      "campaign_end_date": "2017-08-17",
+      "status": "complete",
+      "date_created": "2017-04-17",
+      "date_updated": "2017-04-17",
+      "client_id": 1
+    },
+    "measurements": [
+      {
+        "audience": {
+          "audience_id": 0,
+          "audience_name": "all households",
+          "audience_definition_id": 0,
+          "audience_definition_name": "All",
+          "audience_definition_description": "All household",
+          "sample_id": 1,
+          "audience_sample_entity_count": 2500,
+          "audience_estimated_size": 118400000,
+          "sample_entity_count": 3500,
+          "population_estimated_size": 118400000
+        },
+        "spot_details": [
+          {
+            "spot_airing_id": 1,
+            "network_id": 1,
+            "network": "NBC",
+            "program_id": 123456,
+            "program_name": "Fake Program",
+            "spot_airing_start_timestamp_original": "2017-04-17 20:00:00",
+            "spot_airing_end_timestamp_original": "2017-04-17 20:00:15",
+            "spot_airing_duration_seconds": 15,
+            "national_program_airing_start_timestamp_original": "2017-04-17 20:00:00",
+            "national_program_airing_end_timestamp_original": "2017-04-17 22:00:00",
+            "program_airing_duration_seconds": 7200,
+            "daypart_id": 5,
+            "daypart_name": "prime",
+            "average_audience": 200000,
+            "rating_points": 2,
+            "population_average_audience": 200000,
+            "population_rating_points": 2,
+            "composition": 100,
+            "index": 100
+          },
+          {
+            "spot_airing_id": 1,
+            "network_id": 1,
+            "network": "NBC",
+            "program_id": 123456,
+            "program_name": "Fake Program",
+            "spot_airing_start_timestamp_original": "2017-04-17 20:00:00",
+            "spot_airing_end_timestamp_original": "2017-04-17 20:00:15",
+            "spot_airing_duration_seconds": 15,
+            "national_program_airing_start_timestamp_original": "2017-04-17 20:00:00",
+            "national_program_airing_end_timestamp_original": "2017-04-17 22:00:00",
+            "program_airing_duration_seconds": 7200,
+            "daypart_id": 5,
+            "daypart_name": "prime",
+            "average_audience": 200000,
+            "rating_points": 2,
+            "population_average_audience": 200000,
+            "population_rating_points": 2,
+            "composition": 100,
+            "index": 100
+          }
+        ]
+      }
+    ]
+  }
+]</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_spot_details_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id__post_report_parameters"><span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-parameters</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id__post_report_parameters" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A collection of PostReportParameters.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_parameters_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all PostReportParameters.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_parameters_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a new PostReportParameter.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_parameters_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-parameters</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all PostReportParameters.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_parameters_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_post_report_id</strong>: <em>required (integer)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>begin_date</strong>: <em>required (date-only)</em></li><li><strong>end_date</strong>: <em>required (date-only)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em></li><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign_post_report_id": 1,
+  "sample_id": 2,
+  "begin_date": "2017-04-17",
+  "end_date": "2017-05-20",
+  "audience_ids": [
+    0,
+    1000000
+  ],
+  "network_group_id": 0,
+  "campaign_id": 1
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_parameters_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-parameters</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a new PostReportParameter.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:insert</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_post_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_post_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_parameters_post_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_post_report_id</strong>: <em>(integer)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>begin_date</strong>: <em>required (date-only)</em></li><li><strong>end_date</strong>: <em>required (date-only)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em></li><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>campaign_id</strong>: <em>(integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "sample_id": 2,
+  "begin_date": "2017-04-17",
+  "end_date": "2017-05-20",
+  "audience_ids": [
+    0,
+    1000000
+  ],
+  "network_group_id": 0
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_post_report_id</strong>: <em>required (integer)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>begin_date</strong>: <em>required (date-only)</em></li><li><strong>end_date</strong>: <em>required (date-only)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em></li><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign_post_report_id": 1,
+  "sample_id": 2,
+  "begin_date": "2017-04-17",
+  "end_date": "2017-05-20",
+  "audience_ids": [
+    0,
+    1000000
+  ],
+  "network_group_id": 0,
+  "campaign_id": 1
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters_post_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id_"><span class="parent">/clients/{client_id}/campaigns/{campaign_id}/post-report-parameters</span>/{post_report_id}</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single CampaignPostReportParameters.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a CampaignPostReportParameters.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a CampaignPostReportParameters.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a CampaignPostReportParameters.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}/post-report-parameters</span>/{post_report_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a CampaignPostReportParameters.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li><li><strong>post_report_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_post_report_id</strong>: <em>required (integer)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>begin_date</strong>: <em>required (date-only)</em></li><li><strong>end_date</strong>: <em>required (date-only)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em></li><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign_post_report_id": 1,
+  "sample_id": 2,
+  "begin_date": "2017-04-17",
+  "end_date": "2017-05-20",
+  "audience_ids": [
+    0,
+    1000000
+  ],
+  "network_group_id": 0,
+  "campaign_id": 1
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}/post-report-parameters</span>/{post_report_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a CampaignPostReportParameters.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:update</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li><li><strong>post_report_id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: CampaignPostReportParameters</p></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign_post_report_id</strong>: <em>required (integer)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>begin_date</strong>: <em>required (date-only)</em></li><li><strong>end_date</strong>: <em>required (date-only)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em></li><li><strong>network_group_id</strong>: <em>required (integer)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign_post_report_id": 1,
+  "sample_id": 2,
+  "begin_date": "2017-04-17",
+  "end_date": "2017-05-20",
+  "audience_ids": [
+    0,
+    1000000
+  ],
+  "network_group_id": 0,
+  "campaign_id": 1
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__put_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}/post-report-parameters</span>/{post_report_id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a CampaignPostReportParameters.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:delete</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li><li><strong>post_report_id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_parameters__post_report_id__delete_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id__post_report_impressions_by_date"><span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-impressions-by-date</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id__post_report_impressions_by_date" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single PostReportImpressionsByDate.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the post-report-impressions-by-date for each audience.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-impressions-by-date</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the post-report-impressions-by-date for each audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sample_id</strong>: <em>required (integer description)</em></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em><p>The ids of the audiences.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  0,
+  101
+]</code></pre></div></li><li><strong>begin_date</strong>: <em>required (date-only)</em><p>The beginning of the range of dates.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2016-09-01</code></pre></div></li><li><strong>end_date</strong>: <em>required (date-only)</em><p>The beginning of the range of dates.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2016-09-30</code></pre></div></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign</strong>: <em>required (object)</em><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div></li><li><strong>dates</strong>: <em>required (array of date-only)</em></li><li><strong>measurements</strong>: <em>required (array of PostReportImpressionsAudienceMeasurement1D)</em><p><strong>Items</strong>: PostReportImpressionsAudienceMeasurement1D</p><div class="items"><ul><li><strong>audience</strong>: <em>required (object)</em><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all households",
+  "audience_definition_id": 0,
+  "audience_definition_name": "All",
+  "audience_definition_description": "All household",
+  "sample_id": 1,
+  "audience_sample_entity_count": 2500,
+  "audience_estimated_size": 118400000,
+  "sample_entity_count": 3500,
+  "population_estimated_size": 118400000
+}</code></pre></div></li><li><strong>impressions</strong>: <em>required (array of number)</em></li><li><strong>rating_points</strong>: <em>required (array of number)</em></li><li><strong>audience_composition</strong>: <em>required (array of number)</em></li><li><strong>audience_index</strong>: <em>required (array of number)</em></li></ul></div></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "complete",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  },
+  "dates": [
+    "2016-09-01",
+    "2016-09-02",
+    "2016-09-03",
+    "2016-09-04",
+    "2016-09-05",
+    "2016-09-06"
+  ],
+  "measurements": [
+    {
+      "audience": {
+        "audience_id": 0,
+        "audience_name": "all households",
+        "audience_definition_id": 0,
+        "audience_definition_name": "All",
+        "audience_definition_description": "All household",
+        "sample_id": 1,
+        "audience_sample_entity_count": 2500,
+        "audience_estimated_size": 118400000,
+        "sample_entity_count": 3500,
+        "population_estimated_size": 118400000
+      },
+      "impressions": [
+        28352880.317627,
+        61598091.848999,
+        41108584.0273438,
+        163735409.578125,
+        31666524.2348633,
+        1290532.39066315
+      ],
+      "rating_points": [
+        25.021440432407,
+        54.3603679795342,
+        36.2783601954579,
+        144.496636256576,
+        27.9457342298701,
+        1.13889593062777
+      ],
+      "composition": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "index": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ]
+    }
+  ]
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_impressions_by_date_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency"><span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-reach-by-frequency</a> <span class="methods"><a href="#clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A single PostReportReachByFrequency.</p></div><div class="list-group"><div onclick="window.location.href = '#clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the post-report-reach-by-frequency for each audience.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/clients/{client_id}/campaigns/{campaign_id}</span>/post-report-reach-by-frequency</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the post-report-reach-by-frequency for each audience.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>OAuth 2.0</b> with scopes:<ul><li>post-report:read</li></ul><p>Data+Math supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_request" data-toggle="tab">Request</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_response" data-toggle="tab">Response</a></li><li><a href="#clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_request"><h3>URI Parameters</h3><ul><li><strong>client_id</strong>: <em>required (integer)</em><p>The id of the Client.</p></li><li><strong>campaign_id</strong>: <em>required (integer)</em><p>The id of the Campaign.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>sample_id</strong>: <em>required (integer description)</em></li><li><strong>frequencies</strong>: <em>required (array of integer)</em><p>The list of reach frequencies to measure.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  1,
+  3
+]</code></pre></div></li><li><strong>audience_ids</strong>: <em>required (array of integer)</em><p>The ids of the audiences.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  0,
+  101
+]</code></pre></div></li><li><strong>begin_date</strong>: <em>required (date-only)</em><p>The beginning of the range of dates.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2016-09-01</code></pre></div></li><li><strong>end_date</strong>: <em>required (date-only)</em><p>The beginning of the range of dates.</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>2016-09-30</code></pre></div></li></ul></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>campaign</strong>: <em>required (object)</em><ul><li><strong>campaign_name</strong>: <em>required (string)</em></li><li><strong>campaign_budget</strong>: <em>required (number)</em></li><li><strong>campaign_id</strong>: <em>required (integer)</em></li><li><strong>campaign_start_date</strong>: <em>required (date-only)</em></li><li><strong>status</strong>: <em>required (string)</em></li><li><strong>date_created</strong>: <em>required (date-only)</em></li><li><strong>client_id</strong>: <em>required (integer)</em></li><li><strong>campaign_end_date</strong>: <em>required (date-only)</em></li><li><strong>date_updated</strong>: <em>required (date-only)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "string",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  }
+}</code></pre></div></li><li><strong>frequencies</strong>: <em>required (array of integer)</em></li><li><strong>measurements</strong>: <em>required (array of ReachAudienceMeasurement1D)</em><p><strong>Items</strong>: ReachAudienceMeasurement1D</p><div class="items"><ul><li><strong>audience</strong>: <em>required (object)</em><ul><li><strong>audience_sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_id</strong>: <em>required (integer)</em></li><li><strong>population_estimated_size</strong>: <em>required (number)</em></li><li><strong>sample_id</strong>: <em>required (integer)</em></li><li><strong>audience_definition_name</strong>: <em>required (integer)</em></li><li><strong>audience_name</strong>: <em>required (string)</em></li><li><strong>sample_entity_count</strong>: <em>required (integer)</em></li><li><strong>audience_definition_description</strong>: <em>required (integer)</em></li><li><strong>audience_definition_id</strong>: <em>required (integer)</em></li><li><strong>audience_estimated_size</strong>: <em>required (number)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "audience_id": 0,
+  "audience_name": "all households",
+  "audience_definition_id": 0,
+  "audience_definition_name": "All",
+  "audience_definition_description": "All household",
+  "sample_id": 1,
+  "audience_sample_entity_count": 2500,
+  "audience_estimated_size": 118400000,
+  "sample_entity_count": 3500,
+  "population_estimated_size": 118400000
+}</code></pre></div></li><li><strong>reach</strong>: <em>required (array of number)</em></li><li><strong>reach_plus</strong>: <em>required (array of number)</em></li><li><strong>percent_reach</strong>: <em>required (array of number)</em></li><li><strong>percent_reach_plus</strong>: <em>required (array of number)</em></li></ul></div></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "campaign": {
+    "campaign_id": 1,
+    "campaign_name": "Campaign 1",
+    "campaign_budget": 1000000,
+    "campaign_start_date": "2017-04-17",
+    "campaign_end_date": "2017-08-17",
+    "status": "complete",
+    "date_created": "2017-04-17",
+    "date_updated": "2017-04-17",
+    "client_id": 1
+  },
+  "frequencies": [
+    1,
+    3
+  ],
+  "measurements": [
+    {
+      "audience": {
+        "audience_id": 0,
+        "audience_name": "all households",
+        "audience_definition_id": 0,
+        "audience_definition_name": "All",
+        "audience_definition_description": "All household",
+        "sample_id": 1,
+        "audience_sample_entity_count": 2500,
+        "audience_estimated_size": 118400000,
+        "sample_entity_count": 3500,
+        "population_estimated_size": 118400000
+      },
+      "reach": [
+        "20500371.6872912,",
+        "16315762.635616,"
+      ],
+      "reach_plus": [
+        9999.99,
+        9999.99
+      ],
+      "percent_reach": [
+        77.7,
+        77.7
+      ],
+      "percent_reach_plus": [
+        77.7,
+        77.7
+      ]
+    }
+  ]
+}</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>message</strong>: <em>required (string)</em></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Object not found."
+}</code></pre></div></div><div class="tab-pane" id="clients__client_id__campaigns__campaign_id__post_report_reach_by_frequency_get_securedby"><h1>Secured by</h1><h1>Secured by OAuth 2.0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h3>Query Parameters</h3><ul><li><strong>access_token</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "Authorization" header.</p></li></ul></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#networks">/networks</a></li><li><a href="#network_groups">/network-groups</a></li><li><a href="#dayparts">/dayparts</a></li><li><a href="#audiences">/audiences</a></li><li><a href="#organizations">/organizations</a></li><li><a href="#clients">/clients</a></li></ul></div></div></div></div></body></html>
